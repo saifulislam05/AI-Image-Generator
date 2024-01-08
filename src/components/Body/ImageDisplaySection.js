@@ -26,13 +26,15 @@ const ImageDisplaySection = ({ image, loading, handleDownload }) => {
             className="w-full rounded-b-xl"
           />
           <div className="w-fit mx-auto my-2">
-            <button
-              className="btn btn-secondary"
-              onClick={handleDownload}
-              disabled={!image}
-            >
-              Download Image
-            </button>
+            {image && (
+              <button
+                className="btn btn-secondary"
+                onClick={handleDownload}
+                disabled={!image}
+              >
+                Download Image
+              </button>
+            )}
           </div>
         </>
       )}

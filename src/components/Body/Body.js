@@ -62,14 +62,12 @@ const Body = () => {
         Generate your desired Image
       </h1>
 
-      {/* Input Section */}
       <InputSection
         inputText={inputText}
         handleInputChange={handleInputChange}
         handleGenerate={handleGenerate}
       />
 
-      {/* Image Display Section */}
       <ImageDisplaySection
         image={image}
         loading={loading}
