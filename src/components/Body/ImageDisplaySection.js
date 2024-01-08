@@ -2,7 +2,7 @@ import React from "react";
 
 const ImageDisplaySection = ({ image, loading, handleDownload }) => {
   return (
-    <div className="w-full mt-6 rounded-xl overflow-hidden">
+    <div className="w-full mt-6 rounded-xl overflow-hidden h-fit">
       {loading ? (
         <div className="mt-6 w-fit mx-auto flex flex-col items-center">
           <span className="loading loading-dots loading-lg"></span>
@@ -23,7 +23,7 @@ const ImageDisplaySection = ({ image, loading, handleDownload }) => {
               "https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             }
             alt="Generated"
-            className="w-full"
+            className="w-full rounded-b-xl"
           />
           <div className="w-fit mx-auto my-2">
             <button
