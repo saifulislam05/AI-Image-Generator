@@ -19,14 +19,15 @@ const Body = () => {
         data,
         {
           headers: {
-            Authorization: process.env.REACT_APP_API_KEY,
+            Authorization:`Bearer ${process.env.REACT_APP_API_KEY}`,
             "Content-Type": "application/json",
           },
+          responseType:"blob",
         }
       );
 
       const result = await response.data;
-      return result;
+      return URL.createObjectURL(result);
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
@@ -38,11 +39,12 @@ const Body = () => {
     setLoading(true);
     try {
       const imageData = await query({ inputs: inputText });
-      setImage(imageData.data);
+      setImage(imageData);
     } catch (error) {
       console.error("Error generating image:", error);
     } finally {
       setLoading(false);
+      console.log(image);
     }
   };
 
@@ -87,9 +89,12 @@ const Body = () => {
               image ||
               "https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             }
-            alt="Generated Image"
+            alt="Generated"
             className="w-full"
-          />
+            />
+            <div className="w-fit mx-auto my-2">
+            <button className="btn btn-secondary" type="Download" href={image} >Download Image</button>
+            </div>
         </div>
       )}
     </div>
