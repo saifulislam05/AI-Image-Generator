@@ -10,40 +10,36 @@ const Body = () => {
     setInputText(e.target.value);
   };
 
-  async function query(data) {
+  const query = async (data) => {
     try {
-      const response = await fetch(
+      const response = await axios.post(
         "https://api-inference.huggingface.co/models/prompthero/openjourney-v4",
+        data,
         {
-          method: "POST",
           headers: {
             Authorization: process.env.REACT_APP_API_KEY,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(data),
         }
       );
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const result = await response.blob();
+      const result = await response.data;
       return result;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
     }
-  }
+  };
 
   const handleGenerate = async () => {
     setLoading(true);
     try {
       const imageData = await query({ inputs: inputText });
       setImage(imageData.data);
-      setLoading(false);
     } catch (error) {
       console.error("Error generating image:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,17 +61,17 @@ const Body = () => {
         </button>
       </div>
       {loading ? (
-        <div className=" mt-6 w-fit mx-auto flex flex-col items-center">
+        <div className="mt-6 w-fit mx-auto flex flex-col items-center">
           <span className="loading loading-dots loading-lg"></span>
           <span className="text-center text-warning">
-            Its painting just wait. I will show you !
+            Its painting just wait. I will show you!
           </span>
         </div>
       ) : (
         <div className="w-full mt-6 rounded-xl overflow-hidden">
           <div className="bg-primary text-primary-content py-2">
             <h1 className="text-center text-lg font-semibold">
-                {image ? "Generated Image":"Demo Image" }
+              {image ? "Generated Image" : "Demo Image"}
             </h1>
           </div>
           <img
