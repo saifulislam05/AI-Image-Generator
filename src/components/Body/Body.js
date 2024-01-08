@@ -19,10 +19,10 @@ const Body = () => {
         data,
         {
           headers: {
-            Authorization:`Bearer ${process.env.REACT_APP_API_KEY}`,
+            Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
             "Content-Type": "application/json",
           },
-          responseType:"blob",
+          responseType: "blob",
         }
       );
 
@@ -45,6 +45,16 @@ const Body = () => {
     } finally {
       setLoading(false);
       console.log(image);
+    }
+  };
+
+  // Function to handle download when the button is clicked
+  const handleDownload = () => {
+    if (image) {
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = "generated_image.png";
+      link.click();
     }
   };
 
@@ -73,7 +83,7 @@ const Body = () => {
         <div className="mt-6 w-fit mx-auto flex flex-col items-center">
           <span className="loading loading-dots loading-lg"></span>
           <span className="text-center text-warning">
-            Its painting, just wait. I will show you!
+            It's painting, just wait. I will show you!
           </span>
         </div>
       ) : (
@@ -91,10 +101,16 @@ const Body = () => {
             }
             alt="Generated"
             className="w-full"
-            />
-            <div className="w-fit mx-auto my-2">
-            <button className="btn btn-secondary" type="Download" href={image} >Download Image</button>
-            </div>
+          />
+          <div className="w-fit mx-auto my-2">
+            <button
+              className="btn btn-secondary"
+              onClick={handleDownload}
+              disabled={!image}
+            >
+              Download Image
+            </button>
+          </div>
         </div>
       )}
     </div>
