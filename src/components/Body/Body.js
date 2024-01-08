@@ -6,10 +6,12 @@ const Body = () => {
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Event handler for input text change
   const handleInputChange = (e) => {
     setInputText(e.target.value);
   };
 
+  // Function to make API request using axios
   const query = async (data) => {
     try {
       const response = await axios.post(
@@ -31,6 +33,7 @@ const Body = () => {
     }
   };
 
+  // Event handler for image generation button click
   const handleGenerate = async () => {
     setLoading(true);
     try {
@@ -48,6 +51,8 @@ const Body = () => {
       <h1 className="text-center text-xl mb-4 font-semibold uppercase">
         Generate your desired Image
       </h1>
+
+      {/* Input and button for image generation */}
       <div className="w-full flex flex-col md:flex-row gap-3 mx-auto">
         <input
           type="text"
@@ -60,14 +65,17 @@ const Body = () => {
           Generate
         </button>
       </div>
+
+      {/* Loading indicator while generating the image */}
       {loading ? (
         <div className="mt-6 w-fit mx-auto flex flex-col items-center">
           <span className="loading loading-dots loading-lg"></span>
           <span className="text-center text-warning">
-            Its painting just wait. I will show you!
+            Its painting, just wait. I will show you!
           </span>
         </div>
       ) : (
+        // Display generated or demo image
         <div className="w-full mt-6 rounded-xl overflow-hidden">
           <div className="bg-primary text-primary-content py-2">
             <h1 className="text-center text-lg font-semibold">
